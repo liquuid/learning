@@ -8,6 +8,7 @@
 
 # Additional basic string exercises
 
+import re
 
 # D. verbing
 # Given a string, if its length is at least 3,
@@ -17,8 +18,12 @@
 # If the string length is less than 3, leave it unchanged.
 # Return the resulting string.
 def verbing(s):
-    # +++your code here+++
-    return
+    if (len(s) > 3):
+        if (s[-3:] != 'ing'):
+            s += 'ing'
+        else:
+            s += 'ly'
+    return s
 
 
 # E. not_bad
@@ -30,9 +35,7 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-    # +++your code here+++
-    return
-
+    return re.sub("not(.*)bad", "good", s)
 
 # F. front_back
 # Consider dividing a string into two halves.
@@ -42,8 +45,24 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-    # +++your code here+++
-    return
+    len_a = len(a)
+    len_b = len(b)
+    
+    if len_a % 2 == 0:
+        front_a = a[:int(len_a/2)]
+        back_a = a[int(len_a/2):]
+    else:
+        front_a = a[:int(len_a/2+1)]
+        back_a = a[int(len_a/2+1):]
+    
+    if len_b % 2 == 0:
+        front_b = b[:int(len_b/2)]
+        back_b = b[int(len_b/2):]
+    else:
+        front_b = b[:int(len_b/2+1)]
+        back_b = b[int(len_b/2+1):]
+
+    return front_a + front_b + back_a + back_b
 
 
 # Simple provided test() function used in main() to print
