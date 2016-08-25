@@ -38,6 +38,7 @@ print_words() and print_top().
 """
 
 import sys
+import operator
 
 
 # +++your code here+++
@@ -47,6 +48,58 @@ import sys
 # Then print_words() and print_top() can just call the utility function.
 
 ###
+
+class Word:
+    """
+    Me empolguei :-)
+    Fiz o código para ser case insensitive, então implementei
+    a classe word para usar as funções especiais pra fixar o que
+    aprendi... provavelmente a performance não ficou das melhores.
+    """
+    def __init__(self, string):
+        self.string = string
+
+    def __repr__(self):
+        return "%r " % self.string
+
+    def __eq__(self, other):
+        if self.string.lower() == other.lower():
+            return True
+        else:
+            return False
+
+    def __hash__(self):
+        return hash(self.string)
+
+    def lower(self):
+        return self.string.lower()
+
+def print_words(filename):
+    word_dict = process_words(filename)
+
+    for word in word_dict:
+        print(word, word_dict[word])
+
+def process_words(filename):
+    file = open(filename).read()
+    word_dict = {}
+    word_list = file.split()
+    for word in word_list:
+        word = Word(word)
+        if word.lower() not in word_dict:
+            word_dict[word.lower()] = 1
+        else:
+            word_dict[word.lower()] += 1
+
+    return word_dict
+
+
+def print_top(filename):
+    word_dict = process_words(filename)
+
+    for word, count in sorted(word_dict.items(), key=operator.itemgetter(1), reverse=True):
+        print(word, count)
+
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
