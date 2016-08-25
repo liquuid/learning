@@ -9,14 +9,14 @@ class Vector:
         return 'Vector(%r, %r)' % (self.x, self.y)
 
     def __abs__(self):
-        return hypot(self.x, self.y)
-
-    def __bool__(self):
         """
         >>> v = Vector(3, 4)
         >>> abs(v)
         5.0
         """
+        return hypot(self.x, self.y)
+
+    def __bool__(self):
         return bool(abs(self))
 
     def __add__(self, other):
@@ -40,7 +40,6 @@ class Vector:
         15.0
         """
         return Vector(self.x * scalar, self.y * scalar)
-
 
 if __name__ == "__main__":
     import doctest
