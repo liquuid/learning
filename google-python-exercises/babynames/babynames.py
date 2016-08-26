@@ -41,8 +41,22 @@ def extract_names(filename):
     followed by the name-rank strings in alphabetical order.
     ['2006', 'Aaliyah 91', Aaron 57', 'Abagail 895', ' ...]
     """
-    # +++your code here+++
-    return
+    filename = open(filename).read()
+
+    year = filename.split('Popularity in')[1].split('<')[0].strip()
+
+    filename_lines = filename.split('</th></tr>\n')[1]\
+                             .split('\n<tr><td')[0]\
+                             .split('\n')
+
+    rank = [line.split('<tr align="right"><td>')[1].split('<')[0].strip() for line in filename_lines]
+    name = [line.split('</td><td>')[2].split('<')[0].strip() for line in filename_lines]
+
+    named_rank = [ "%s %s" % z for z in zip(name, rank)]
+    named_rank = sorted(named_rank)
+    named_rank.insert(0,year)
+
+    return named_rank
 
 
 def main():
@@ -59,12 +73,15 @@ def main():
     summary = False
     if args[0] == '--summaryfile':
         summary = True
+
         del args[0]
 
-        # +++your code here+++
-        # For each filename, get the names, then either print the text output
-        # or write it to a summary file
+        fd = open(args[0],'w')
+        [fd.write("%s\n" % line) for line in extract_names(args[1])]
+        fd.close()
 
+    else:
+        [print(line) for line in extract_names(args[0])]
 
 if __name__ == '__main__':
     main()
