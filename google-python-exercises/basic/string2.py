@@ -10,6 +10,7 @@
 
 import re
 
+
 # D. verbing
 # Given a string, if its length is at least 3,
 # add 'ing' to its end.
@@ -18,12 +19,12 @@ import re
 # If the string length is less than 3, leave it unchanged.
 # Return the resulting string.
 def verbing(s):
-    if (len(s) > 3):
-        if (s[-3:] != 'ing'):
-            s += 'ing'
-        else:
-            s += 'ly'
-    return s
+    if (len(s) < 3):
+        return s
+
+    sufix = 'ly' if s.endswith('ing') else 'ing'
+
+    return s + sufix
 
 
 # E. not_bad
@@ -35,7 +36,10 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
+    # alternativo
+    # return re.sub(r'not\b((?!not).)*?bad', 'good', s)
     return re.sub("not(.*)bad", "good", s)
+
 
 # F. front_back
 # Consider dividing a string into two halves.
@@ -45,24 +49,11 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-    len_a = len(a)
-    len_b = len(b)
+    mid = lambda s: (len(s) + 1) // 2
+    front = lambda s: s[:mid(s)]
+    back = lambda s: s[mid(s):]
     
-    if len_a % 2 == 0:
-        front_a = a[:int(len_a/2)]
-        back_a = a[int(len_a/2):]
-    else:
-        front_a = a[:int(len_a/2+1)]
-        back_a = a[int(len_a/2+1):]
-    
-    if len_b % 2 == 0:
-        front_b = b[:int(len_b/2)]
-        back_b = b[int(len_b/2):]
-    else:
-        front_b = b[:int(len_b/2+1)]
-        back_b = b[int(len_b/2+1):]
-
-    return front_a + front_b + back_a + back_b
+    return ''.join([front(a), front(b), back(a), back(b)])
 
 
 # Simple provided test() function used in main() to print
