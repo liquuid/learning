@@ -52,7 +52,7 @@ def front_back(a, b):
     mid = lambda s: (len(s) + 1) // 2
     front = lambda s: s[:mid(s)]
     back = lambda s: s[mid(s):]
-    
+
     return ''.join([front(a), front(b), back(a), back(b)])
 
 

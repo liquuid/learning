@@ -22,6 +22,9 @@
 # and last chars of the string are the same.
 # Note: python does not have a ++ operator, but += works.
 def match_ends(words):
+    #return len(list(lambda w: len(w) > 1 and w[0] == w[-1], words))
+    #return sum(1 for w in words if len(w) > 1 and w[0] == w[-1])
+
     number = 0
     for item in words:
         if ((len(item) >= 2) and ( item[0] == item[-1])):

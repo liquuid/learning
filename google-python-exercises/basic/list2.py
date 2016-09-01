@@ -21,9 +21,9 @@ def remove_adjacent(nums):
 # Ideally, the solution should work in "linear" time, making a single
 # pass of both lists.
 def linear_merge(list1, list2):
-    list3 = list1 + list2
-    list3.sort()
-    return list3
+    import heapq
+    return list(heapq.merge(list1, list2))
+
 
 
 # Note: the solution above is kind of cute, but unforunately list.pop(0)
